@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MyAzureBlog.Models.Entry>
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    @section head{
+        <script src="~/Content/Js/angular.min.js"></script>    
+        <script src="~/Content/Js/angular-sanitize.js"></script>
+    }
+}
+<h2>Test</h2>
+
+<div ng-app="app" ng-controller="entryController">
+
+    <p><input type="text" ng-model="search.Title" /></p>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+        <tr ng-repeat="e in entries | filter : search">
+            <td>{{ e.Title }}</td>
+            <td ng-bind-html="e.Content.substring(0,80)"> </td>
+            <td>
+                <a href="/Entry/Edit/{{e.Id}}">Edit</a> | 
+                <a href="/Entry/Details/{{e.Id}}">Read</a> |
+                <a href="/Entry/Delete/{{e.Id}}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+@section outofhtml
+{
+    <script>
+        var app = angular.module('app', ['ngSanitize']);
+        app.controller('entryController', function ($http, $scope) {
+            $http.get("/Entry/List").success(function (response) { $scope.entries = response });
+        });
+    </script>
+}

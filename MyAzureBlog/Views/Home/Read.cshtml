@@ -1,0 +1,57 @@
+﻿@model MyAzureBlog.Models.Entry
+
+@{
+    ViewBag.Title = Html.DisplayFor(m=>m.Title);
+    ViewBag.Description = ViewBag.Description;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @section head
+    {
+        <link type="text/css" rel="stylesheet" href="~/Content/Highlighter/shCore.css" />
+        <link type="text/css" rel="stylesheet" href="~/Content/Highlighter/shThemeDefault.css" />
+        <script type="text/javascript" src="~/Content/Highlighter/shCore.js"></script>
+        <script type="text/javascript" src="~/Content/Highlighter/shBrushCSharp.js"></script>
+        <script type="text/javascript" src="~/Content/Highlighter/shBrushXml.js"></script>
+        <script type="text/javascript">
+            SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+            SyntaxHighlighter.config.strings.help = '?';
+            SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+            SyntaxHighlighter.config.strings.noBrush = 'Fırça bulunamadı :';
+            SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Firça Html-script seçenegi için yapilandirilmis degil: ';
+            SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+            SyntaxHighlighter.defaults['toolbar'] = false;
+            SyntaxHighlighter.all();
+		    SyntaxHighlighter.all();
+        </script>    
+    }
+}
+
+<div>
+    <h3>@Html.DisplayFor(m => m.Title)</h3>
+
+    
+    <div id="ContentContainer">
+        @Html.Raw(ViewBag.Content)
+    </div>
+    <div>@Html.DisplayFor(model => model.Date)</div>
+</div>
+<div class="social-header">
+    <div class="social_box">
+        <iframe src="//www.facebook.com/plugins/like.php?href=@Request.Url.AbsoluteUri&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=25&amp;appId=181708331898219" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:20px; width:100px;" allowtransparency="true"></iframe>
+    </div>
+    <div class="social_box">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="yagizhanpala">Tweet</a>
+        <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
+    </div>
+    <div class="social_box">
+        <div class="g-plusone" data-size="medium"></div>
+    </div>
+    <div style="clear: both"></div>
+</div>
+<p>
+    @Html.ActionLink("Geri", "Index")
+</p>
+
+<!-- Bu etiketi head bölümüne veya kapanış body etiketinin hemen önüne ekleyin. -->
+<script src="https://apis.google.com/js/platform.js" async defer>
+            {lang: 'tr'}
+</script>

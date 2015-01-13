@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MyAzureBlog.Models.Entry>
+@{
+    ViewBag.Title = "Önce deniyorum sonra yazıyorum";
+    ViewBag.Description = "ASP.NET MVC Code First ile geliştirip Microsoft Azure'da host ettiğim ve fazla calışma fırsatı "+
+       "bulamadığım konuları inceleyip yazdığım blog. Bloğu uzerinde calıştığım konularla eş zamanlı geliştirmeye devam ediyorum.";
+}
+
+@foreach (var item in Model)
+{
+    <div style="margin-bottom: 50px;">
+        <h3>@item.Title</h3>
+        <div>@Html.Raw(item.Content.Split(new[] {'\n' }).FirstOrDefault()) <a href="~/@item.SeoUrl/">devamı...</a></div>
+        <hr />
+    </div>
+}

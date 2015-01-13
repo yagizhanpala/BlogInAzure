@@ -1,0 +1,30 @@
+﻿@model MyAzureBlog.Models.Entry
+
+@{
+    ViewBag.Title = "Read";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    @section head
+    {
+        <link type="text/css" rel="stylesheet" href="~/Content/Highlighter/shCore.css" />
+        <link type="text/css" rel="stylesheet" href="~/Content/Highlighter/shThemeDefault.css" />
+        <script type="text/javascript" src="~/Content/Highlighter/shCore.js"></script>
+        <script type="text/javascript" src="~/Content/Highlighter/shBrushCSharp.js"></script>
+        <script type="text/javascript" src="~/Content/Highlighter/shBrushXml.js"></script>
+        <script type="text/javascript">
+            SyntaxHighlighter.config.clipboardSwf = '../Content/Highlighter/clipboard.swf';
+		    SyntaxHighlighter.all();
+        </script>
+    }
+}
+
+<div>
+    <h3>@Html.DisplayFor(m => m.Title)</h3>
+    <div id="ContentContainer">
+        @Html.Raw(ViewBag.Content)
+    </div>
+    <div>@Html.DisplayFor(model => model.Date)</div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Geri", "Index")
+</p>

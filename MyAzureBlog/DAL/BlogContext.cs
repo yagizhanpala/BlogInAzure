@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using MyAzureBlog.Models;
+using MyAzureBlog.Migrations;
+using Microsoft.AspNet.Identity.EntityFramework;
+using MyAzureBlog.Security;
+
+namespace MyAzureBlog.DAL
+{
+    // 03.01.2014 DbContext yerine  IdentityDbContext<MyIdentityUser> ypala
+    public class BlogContext : IdentityDbContext<MyIdentityUser>
+    {
+        public BlogContext() : base("BlogContext")
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<BlogContext,Configuration>("BlogContext"));
+        }
+
+        public DbSet<Entry> Entries { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            base.OnModelCreating(modelBuilder);
+        }
+    }
+}
