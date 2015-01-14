@@ -21,6 +21,10 @@ textarea.entry-content{
 div#ContentContainer{
     margin: 0 0 20px;
     float: left;
+    display: block;
+    width: 820px;
+    line-height: 1.4em !important;
+    text-align: justify;
 }
 div#ContentContainer ul li{ 
     line-height: 25px!important;
@@ -48,6 +52,20 @@ div#ContentContainer .conc{
     float: right;
     text-align: right;
 }
+#RightColumn{
+    float:right; 
+    width: 280px; 
+}
+@media only screen and (max-width : 1100px) {
+    div#ContentContainer {
+        float: none !important;
+        width: 100% !important;
+    }
+    #RightColumn {
+        float: none !important;
+    }
+}
+
 .clear{
     clear: both;
 }

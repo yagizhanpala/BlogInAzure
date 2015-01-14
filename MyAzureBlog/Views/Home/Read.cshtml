@@ -16,12 +16,13 @@
             SyntaxHighlighter.config.strings.help = '?';
             SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
             SyntaxHighlighter.config.strings.noBrush = 'Fırça bulunamadı :';
-            SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Firça Html-script seçenegi için yapilandirilmis degil: ';
+            SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Firca Html-script seçenegi için yapilandirilmis degil: ';
             SyntaxHighlighter.defaults['pad-line-numbers'] = false;
             SyntaxHighlighter.defaults['toolbar'] = false;
-            SyntaxHighlighter.all();
-		    SyntaxHighlighter.all();
-        </script>    
+            SyntaxHighlighter.all();        </script>    
+
+        <script src="~/Content/Js/angular.min.js"></script>
+        <script src="~/Content/Js/angular-sanitize.js"></script>
     }
 }
 
@@ -32,8 +33,14 @@
     <div id="ContentContainer">
         @Html.Raw(ViewBag.Content)
     </div>
+    <!-- Sağ kolon ypala 14.01.2014 -->
+    @Html.Partial("~/Views/Partial/RightColumn.cshtml")
+    <div class="clear"></div>
+    <!-- Sağ kolon ypala 14.01.2014 -->
     <div>@Html.DisplayFor(model => model.Date)</div>
 </div>
+
+<!-- Sosyal ağlar ypala 09.01.2014 -->
 <div class="social-header">
     <div class="social_box">
         <iframe src="//www.facebook.com/plugins/like.php?href=@Request.Url.AbsoluteUri&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=25&amp;appId=181708331898219" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:20px; width:100px;" allowtransparency="true"></iframe>
@@ -47,11 +54,25 @@
     </div>
     <div style="clear: both"></div>
 </div>
+<!-- Sosyal ağlar ypala 10.09.2014 -->
+
 <p>
-    @Html.ActionLink("Geri", "Index")
+    @Html.ActionLink("Anasayfa", "Index")
 </p>
 
 <!-- Bu etiketi head bölümüne veya kapanış body etiketinin hemen önüne ekleyin. -->
 <script src="https://apis.google.com/js/platform.js" async defer>
             {lang: 'tr'}
 </script>
+
+<!-- AngularJs ypala 14.01.2014-->
+@section outofhtml
+{
+
+    <script>
+            var app = angular.module('app', ['ngSanitize']);
+            app.controller('entryController', function ($http, $scope) {
+                $http.get("/Home/List").success(function (response) { $scope.entries = response });
+            });
+    </script>
+}

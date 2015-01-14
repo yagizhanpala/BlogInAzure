@@ -33,5 +33,12 @@ namespace MyAzureBlog.Controllers
             }
             
         }
+
+        // 14.02.2014 AngularJS ypala
+        public JsonResult List()
+        {
+            var entries = context.Entries.OrderByDescending(t=> t.Id).Where(t => t.Published == true).Select(t => new { t.SeoUrl, t.Title }).ToList();
+            return Json(entries, JsonRequestBehavior.AllowGet);
+        }
     }
 }
