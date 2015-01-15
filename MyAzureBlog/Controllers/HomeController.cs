@@ -23,7 +23,6 @@ namespace MyAzureBlog.Controllers
             try
             {
                 Entry entry = context.Entries.SingleOrDefault(t => t.Published == true && t.SeoUrl == seourl);
-                ViewBag.Description = entry.Description;
                 ViewBag.Content = entry.Content;
                 return View(entry);
             }

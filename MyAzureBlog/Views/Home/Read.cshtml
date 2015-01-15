@@ -2,7 +2,8 @@
 
 @{
     ViewBag.Title = Html.DisplayFor(m=>m.Title);
-    ViewBag.Description = ViewBag.Description;
+    ViewBag.Description = Html.DisplayFor(m=>m.Description);
+    ViewBag.Keywords = Html.DisplayFor(m=>m.Keywords);
     Layout = "~/Views/Shared/_Layout.cshtml";
     @section head
     {
@@ -19,7 +20,8 @@
             SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Firca Html-script seçenegi için yapilandirilmis degil: ';
             SyntaxHighlighter.defaults['pad-line-numbers'] = false;
             SyntaxHighlighter.defaults['toolbar'] = false;
-            SyntaxHighlighter.all();        </script>    
+            SyntaxHighlighter.all();
+        </script>    
 
         <script src="~/Content/Js/angular.min.js"></script>
         <script src="~/Content/Js/angular-sanitize.js"></script>
