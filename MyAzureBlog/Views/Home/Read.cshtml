@@ -42,8 +42,13 @@
     <div>@Html.DisplayFor(model => model.Date)</div>
 </div>
 
+<p>
+    @Html.ActionLink("Anasayfa", "Index")
+</p>
+
 <!-- Sosyal ağlar ypala 09.01.2014 -->
 <div class="social-header">
+    <div class="social_box" style="float: left;"><h3 style="margin:0 10px 0 0; padding:0;">Yorumlar</h3></div>
     <div class="social_box">
         <iframe src="//www.facebook.com/plugins/like.php?href=@Request.Url.AbsoluteUri&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=25&amp;appId=181708331898219" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:20px; width:100px;" allowtransparency="true"></iframe>
     </div>
@@ -58,23 +63,87 @@
 </div>
 <!-- Sosyal ağlar ypala 10.09.2014 -->
 
-<p>
-    @Html.ActionLink("Anasayfa", "Index")
-</p>
+<div>
+    
+    @{
+        // Yorumları listele ypala 16.01.2015
+        foreach (var c in Model.Comment)
+        {
+            <div style="margin: 20px 0; padding-bottom: 15px; border-bottom: 1px solid #e8e8e8;">
+                <span style="font-size:12px;"><b>@c.Name</b> <i>@c.Date</i> tarihinde dedi ki:</span>
+                <div style="margin-top: 12px;">@c.Content</div>
+            </div>
+        }
+    }
 
-<!-- Bu etiketi head bölümüne veya kapanış body etiketinin hemen önüne ekleyin. -->
+</div>
+
+<!-- Yorum ekle form ypala 16.01.2014 -->
+<div id="commentViewEntry" style="width: 100%; background-color: #f5f5f5; padding: 20px;">
+    <form ng-controller="CommentController">
+        <div style="font-size: 14px; color: #ff0000; margin-bottom: 20px;">{{msg}}</div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2">İsim*</label>
+                <div class="col-md-10">
+                    <input type="text" ng-model="name" placeholder="Adınız" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Email*</label>
+                <div class="col-md-10">
+                    <input type="text" ng-model="email" placeholder="Mail Adresiniz" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Yorumunuz*</label>
+                <div class="col-md-10">
+                    <textarea ng-model="content" placeholder="Yorumunuz" class="form-control text-box multi-line" style="width: 650px; height: 200px;"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button ng-click='AddComment();' class="btn btn-default">Gönder</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+<!-- Yorum ekle form ypala 16.01.2014 -->
+
+<!-- gAnalytics -->
 <script src="https://apis.google.com/js/platform.js" async defer>
-            {lang: 'tr'}
+    { lang: 'tr' }
 </script>
 
-<!-- AngularJs ypala 14.01.2014-->
+<!-- AngularJs ypala 14.01.2014 -->
 @section outofhtml
 {
+    <script type="text/javascript">
+        var app = angular.module('app', ['ngSanitize']);
+            
+        app.controller('EntryController', function ($http, $scope) {
+            $http.get("/Home/List").success(function (response) { $scope.entries = response });
+        });
 
-    <script>
-            var app = angular.module('app', ['ngSanitize']);
-            app.controller('entryController', function ($http, $scope) {
-                $http.get("/Home/List").success(function (response) { $scope.entries = response });
-            });
+        // AddComment ypala 16.01.2015
+        app.controller('CommentController', function ($http, $scope) {
+
+            $scope.AddComment = function () {
+
+                $http.post('/Home/AddComment', { 'name': $scope.name, 'email': $scope.email, 'content': $scope.content, 'entryId': @Html.DisplayFor(m => m.Id) }
+                ).success(function (data, status, headers, config) {
+                    $scope.name = "";
+                    $scope.email = "";
+                    $scope.content = "";
+                    $scope.msg ="İlginiz için teşekkür ederim :). Yorumunuz ulaştı. En kısa sürede değerlendirilip yayınlanacaktır.";
+                }).error(function (data, status) {
+                    alert("Ters giden bir şeyler var :(. Girdiğiniz bilgileri kontrol edip tekrar dener misiniz?");
+                });
+            }
+        });
+        // AddComment
     </script>
 }

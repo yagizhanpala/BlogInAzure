@@ -34,5 +34,6 @@ namespace MyAzureBlog.Models
 
 
         public Category Category { get; set; }
+        public virtual ICollection<Comment> Comment { get; set; } // add comment classes ypala 15.01.2014
     }
 }

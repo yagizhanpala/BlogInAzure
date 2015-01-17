@@ -13,7 +13,7 @@ namespace MyAzureBlog
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            // Seo URL amaçlı: 09.12.2014
+            // Seo URL amaçlı ypala 09.12.2014
             routes.MapRoute(
                 name: "Category",
                 url: "Category",
@@ -24,6 +24,13 @@ namespace MyAzureBlog
                 name: "Entry",
                 url: "Entry",
                 defaults: new { controller = "Entry", action = "Index" }
+            );
+
+            // Comments için ypala 17.01.2015
+            routes.MapRoute(
+                name: "Comment",
+                url: "Comment",
+                defaults: new { controller = "Comment", action = "Index" }
             );
 
             routes.MapRoute(

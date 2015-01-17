@@ -16,11 +16,13 @@ namespace MyAzureBlog.DAL
     {
         public BlogContext() : base("BlogContext")
         {
+            this.Configuration.LazyLoadingEnabled = false; // ypala 17.01.2014
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<BlogContext,Configuration>("BlogContext"));
         }
 
         public DbSet<Entry> Entries { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
